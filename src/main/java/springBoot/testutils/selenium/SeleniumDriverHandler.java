@@ -2,8 +2,6 @@ package org.tsdes.misc.testutils.selenium;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -56,7 +54,7 @@ public class SeleniumDriverHandler {
         return new ChromeDriver();
     }
 
-    public static WebDriver getFirefoxDriver(){
+//    public static WebDriver getFirefoxDriver(){
         /*
             Need to have an updated Firefox, but also need
             to download and put the geckodriver in your own home dir.
@@ -69,13 +67,13 @@ public class SeleniumDriverHandler {
             Therefore, I do recommend to use Chrome instead
          */
 
-        setupDriverExecutable("geckodriver", "webdriver.gecko.driver");
+//        setupDriverExecutable("geckodriver", "webdriver.gecko.driver");
 
-        DesiredCapabilities desiredCapabilities = DesiredCapabilities.firefox();
-        desiredCapabilities.setCapability("marionette", true);
-        desiredCapabilities.setJavascriptEnabled(true);
+//        DesiredCapabilities desiredCapabilities = DesiredCapabilities.firefox();
+//        desiredCapabilities.setCapability("marionette", true);
+//        desiredCapabilities.setJavascriptEnabled(true);
 
-        return  new FirefoxDriver(desiredCapabilities);
-    }
+//        return  new FirefoxDriver(desiredCapabilities);
+//    }
 
 }

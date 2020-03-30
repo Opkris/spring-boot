@@ -21,7 +21,6 @@ public class CategoryServiceTest extends ServiceTestBase{
     @Autowired
     private CategoryService categoryService;
 
-
     @Test
     public void testNoCategory(){
 
@@ -54,14 +53,14 @@ public class CategoryServiceTest extends ServiceTestBase{
     @Test
     public void testCreateSubCategory(){
 
-        String ctgName = "ctg_testCreateSubCategory";
-        long ctgId = categoryService.createCategory(ctgName);
+        String category_name = "category_testCreateSubCategory";
+        long categoryId = categoryService.createCategory(category_name);
 
         String subName = "sub_testCreateSubCategory";
-        long subId = categoryService.createSubCategory(ctgId, subName);
+        long subId = categoryService.createSubCategory(categoryId, subName);
 
         SubCategory sub = categoryService.getSubCategory(subId);
-        assertEquals((Long) ctgId, sub.getParent().getId());
+        assertEquals((Long) categoryId, sub.getParent().getId());
         assertEquals(subName, sub.getName());
     }
 

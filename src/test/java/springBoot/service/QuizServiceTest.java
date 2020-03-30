@@ -26,8 +26,8 @@ public class QuizServiceTest extends ServiceTestBase{
     private QuizService quizService;
 
     private long createCtgAndSub(String ctg, String sub){
-        long ctgId = categoryService.createCategory(ctg);
-        return categoryService.createSubCategory(ctgId, sub);
+        long categoryId = categoryService.createCategory(ctg);
+        return categoryService.createSubCategory(categoryId, sub);
     }
 
     @Test
@@ -80,13 +80,13 @@ public class QuizServiceTest extends ServiceTestBase{
     @Test
     public void testGetRandomQuizzes(){
 
-        long ctgId = createQuizzes("a", "b", "c");
+        long categoryId = createQuizzes("a", "b", "c");
 
         Set<String> questions = new HashSet<>();
 
-        for(int i=0; i<50; i++){
+        for(int i = 0; i < 50; i++){
 
-            List<Quiz> quizzes = quizService.getRandomQuizzes(2, ctgId);
+            List<Quiz> quizzes = quizService.getRandomQuizzes(2, categoryId);
             assertEquals(2, quizzes.size());
 
             Quiz first = quizzes.get(0);

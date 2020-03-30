@@ -15,7 +15,7 @@ public class Category {
 
     @Column(unique = true) // ensure that the name is unique throw an exception when you create a duplicate
     @NotBlank // Cant have a name with just "Spaces" eks : name = "     ";
-    @Size(max=128) // The name can have a name above 128 bit
+    @Size(max=128) // The name cant be more then 128 bit
     private String name;
 
     /**Cascade**/

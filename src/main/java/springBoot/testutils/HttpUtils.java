@@ -1,4 +1,4 @@
-package org.tsdes.misc.testutils;
+package springBoot.testutils;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -11,7 +11,6 @@ import java.util.Objects;
  * Not something you should use, but just to understand what HTTP communications
  * actually are.
  * <p>
- * Created by arcuri82 on 08-Feb-18.
  */
 public class HttpUtils {
 
