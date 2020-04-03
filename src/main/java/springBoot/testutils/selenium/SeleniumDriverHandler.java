@@ -8,9 +8,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 
-/**
- * Created by arcuri82 on 02-Feb-18.
- */
 public class SeleniumDriverHandler {
 
 

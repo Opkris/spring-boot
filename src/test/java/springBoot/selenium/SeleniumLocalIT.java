@@ -1,4 +1,4 @@
-package springBoot;
+package springBoot.selenium;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -10,11 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import springBoot.service.PO.IndexPO;
-import springBoot.service.PO.ui.MatchPO;
-import springBoot.service.PO.ui.ResultPO;
+import springBoot.Application;
+import springBoot.selenium.po.IndexPO;
+import springBoot.selenium.po.SignUpPO;
+import springBoot.selenium.po.ui.MatchPO;
+import springBoot.selenium.po.ui.ResultPO;
 import springBoot.service.QuizService;
+import springBoot.testutils.selenium.SeleniumDriverHandler;
 
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
@@ -32,10 +36,17 @@ public class SeleniumLocalIT {
     @Autowired
     private QuizService quizService;
 
+    private static final AtomicInteger counter = new AtomicInteger(0);
+
+    private String getUniqueId(){
+        return "random_text_SeleniumLocalIT_" + counter.getAndIncrement();
+    }
+
     @BeforeAll
     public static void initClass(){
 
-        driver = springBoot.testutils.selenium.SeleniumDriverHandler.getChromeDriver();
+        driver = SeleniumDriverHandler.getChromeDriver();
+//        driver = springBoot.testutils.selenium.SeleniumDriverHandler.getChromeDriver();
 
         assumeTrue(driver != null, "Cannot find/initialize Chrome driver");
     }
@@ -48,6 +59,17 @@ public class SeleniumLocalIT {
     }
 
     private IndexPO home;
+
+    private IndexPO createNewUser(String username, String password){
+        home.toStartingPage();
+
+        SignUpPO signUpPO = home.toSignUp();
+
+        IndexPO indexPO = signUpPO.createUser(username, password);
+        assertNotNull(indexPO);
+
+        return indexPO;
+    }
 
     @BeforeEach
     public void initTest(){
@@ -65,6 +87,9 @@ public class SeleniumLocalIT {
 
     @Test
     public void testNewMatch(){
+
+        createNewUser(getUniqueId(),"42");
+
         MatchPO po = home.startNewMatch();
         assertTrue(po.canSelectCategory());
     }
@@ -139,5 +164,27 @@ public class SeleniumLocalIT {
         assertTrue(result.haveWon());
         assertFalse(result.haveLost());
     }
+
+    @Test
+    public void testCreateAndLogoutUser(){
+
+        assertFalse(home.isLoggedIn());
+
+        String username = getUniqueId();
+        String password = "1337-42";
+        home = createNewUser(username, password);
+
+        assertTrue(home.isLoggedIn());
+        assertTrue(home.getDriver().getPageSource().contains(username));
+
+        home.doLogout();
+
+        assertFalse(home.isLoggedIn());
+        assertFalse(home.getDriver().getPageSource().contains(username));
+
+
+
+    }
+
 
 }

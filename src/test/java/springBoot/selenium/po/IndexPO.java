@@ -1,13 +1,16 @@
-package springBoot.service.PO;
+package springBoot.selenium.po;
 
 import org.openqa.selenium.WebDriver;
-import springBoot.service.PO.ui.MatchPO;
+import springBoot.selenium.po.ui.MatchPO;
 import springBoot.testutils.selenium.PageObject;
 
 import static org.junit.Assert.assertTrue;
 
-public class IndexPO extends PageObject {
+public class IndexPO extends LayoutPO {
 
+    public IndexPO(PageObject other){
+        super(other);
+    }
 
     public IndexPO(WebDriver driver, String host, int port) {
         super(driver, host, port);

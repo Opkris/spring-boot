@@ -65,7 +65,7 @@ public class QuizService {
 
         SubCategory subCategory = em.find(SubCategory.class, subCategoryId);
         if(subCategory == null){
-            throw new IllegalArgumentException("SubCategory "+subCategoryId+" does not exist");
+            throw new IllegalArgumentException("SubCategory "+ subCategoryId +" does not exist");
         }
 
         Quiz quiz = new Quiz();

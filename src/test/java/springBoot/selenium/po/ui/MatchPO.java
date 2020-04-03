@@ -1,4 +1,4 @@
-package springBoot.service.PO.ui;
+package springBoot.selenium.po.ui;
 
 import org.openqa.selenium.By;
 import springBoot.testutils.selenium.PageObject;

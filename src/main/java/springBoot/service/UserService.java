@@ -33,7 +33,7 @@ public class UserService {
         user.setRoles(Collections.singleton("USER"));
         user.setEnabled(true);
 
-        em.persist(true);
+        em.persist(user);
 
         return true;
     }

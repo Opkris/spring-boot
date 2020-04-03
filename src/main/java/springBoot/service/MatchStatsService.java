@@ -77,13 +77,12 @@ public class FooService {
     public void reportVictory(String username){
 
         MatchStats match = getMatchStats(username);
-
         match.setVictories( 1 + match.getVictories());
     }
     public void reportDefeat(String username){
 
         MatchStats match = getMatchStats(username);
+        match.setDefeats( 1 + match.getDefeats());
 
-        match.setVictories( 1 + match.getDefeats());
     }
 }
