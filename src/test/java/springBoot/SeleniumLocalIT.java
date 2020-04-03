@@ -15,8 +15,8 @@ import springBoot.service.PO.ui.MatchPO;
 import springBoot.service.PO.ui.ResultPO;
 import springBoot.service.QuizService;
 
-import static org.junit.Assert.*;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
@@ -35,13 +35,13 @@ public class SeleniumLocalIT {
     @BeforeAll
     public static void initClass(){
 
-        driver = org.tsdes.misc.testutils.selenium.SeleniumDriverHandler.getChromeDriver();
+        driver = springBoot.testutils.selenium.SeleniumDriverHandler.getChromeDriver();
 
         assumeTrue(driver != null, "Cannot find/initialize Chrome driver");
     }
 
     @AfterAll
-    public static void shutDown(){
+    public static void tearDown() {
         if (driver != null) {
             driver.close();
         }
@@ -115,21 +115,21 @@ public class SeleniumLocalIT {
     @Test
     public void testWinAMatch(){
 
-        MatchPO match = home.startNewMatch();
-        String categoryId = match.getCategoryIds().get(0);
-        match.chooseCategory(categoryId);
+        MatchPO matchPO = home.startNewMatch();
+        String categoryId = matchPO.getCategoryIds().get(0);
+        matchPO.chooseCategory(categoryId);
 
         ResultPO result = null;
 
         // creating a for-loop to go throng all the questions
         for (int i = 1; i <= 5; i++) {
-            assertTrue(match.isQuestionDisplayed());
-            assertEquals (i, match.getQuestionCounter());
+            assertTrue(matchPO.isQuestionDisplayed());
+            assertEquals (i, matchPO.getQuestionCounter());
 
-            long quizId = match.getQuizId();
+            long quizId = matchPO.getQuizId();
             int rightAnswer = quizService.getQuiz(quizId).getIndexOfCorrectAnswer();
 
-            result = match.answerQuestion(rightAnswer);
+            result = matchPO.answerQuestion(rightAnswer);
 
             if( i != 5){
                 assertNull(result);
